@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+option java_package = "com.vmiforall.remotecontrol";
+option java_outer_classname = "RemoteControlProto";
+
+package remotecontrol;
+
+import "google/protobuf/empty.proto";
+
+service RemoteControl {
+
+  rpc SendMotionEventStream(stream SendMotionEventRequest) returns (SendMotionEventStreamResponse) {}
+
+}
+
+message SendMotionEventRequest {
+  MotionEvent motionEvent = 1;
+}
+
+message SendMotionEventStreamResponse {
+
+}
+
+// serialization for android.view.MotionEvent
+message MotionEvent {
+  int32 action = 1;
+  int32 pointerCount = 2;
+  repeated PointerProperties pointerProperties = 3;
+  repeated PointerCoords pointerCoords = 4;
+  int32 metaState = 5;
+  int32 buttonState = 6;
+  float xPrecision = 7;
+  float yPrecision = 8;
+  int32 deviceId = 9;
+  int32 edgeFlags = 10;
+  int32 source = 11;
+  int32 flags = 12;
+}
+
+message PointerProperties {
+  int32 id = 1;
+  int32 toolType = 2;
+}
+
+message PointerCoords {
+  float x = 1;
+  float y = 2;
+  float pressure = 3;
+  float size = 4;
+  float touchMajor = 5;
+  float touchMinor = 6;
+  float toolMajor = 7;
+  float toolMinor = 8;
+  float orientation = 9;
+}
